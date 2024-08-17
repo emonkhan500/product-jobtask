@@ -5,7 +5,7 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("price_asc"); // Default sorting
+  const [sortBy, setSortBy] = useState("price_asc");
   const [brandFilter, setBrandFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
@@ -33,27 +33,27 @@ const Product = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Reset to the first page when a new search is made
+    setCurrentPage(1); 
   };
 
   const handleSortChange = (e) => {
     setSortBy(e.target.value);
-    setCurrentPage(1); // Reset to the first page when sorting changes
+    setCurrentPage(1);
   };
 
   const handleBrandChange = (e) => {
     setBrandFilter(e.target.value);
-    setCurrentPage(1); // Reset to the first page when the brand filter changes
+    setCurrentPage(1); 
   };
 
   const handleCategoryChange = (e) => {
     setCategoryFilter(e.target.value);
-    setCurrentPage(1); // Reset to the first page when the category filter changes
+    setCurrentPage(1); 
   };
 
   const handlePriceChange = (e) => {
     setPriceFilter(e.target.value);
-    setCurrentPage(1); // Reset to the first page when the price filter changes
+    setCurrentPage(1); 
   };
 
   return (
@@ -96,7 +96,10 @@ const Product = () => {
           <option value="">All Categories</option>
           <option value="Computers">Computers</option>
           <option value="Accessories">Accessories</option>
-          {/* Add more category options as needed */}
+          <option value="Footwear">Footwear</option>
+          <option value="Cameras">Cameras</option>
+          <option value="Electronics">Electronics</option>
+          
         </select>
         
         <select
@@ -105,9 +108,11 @@ const Product = () => {
           className="p-2 border rounded-lg shadow-lg"
         >
           <option value="">All Prices</option>
-          <option value="500-1000">$500 - $1000</option>
-          <option value="1000-1500">$1000 - $1500</option>
-          {/* Add more price options as needed */}
+          <option value="100-200">$100 - $200</option>
+          <option value="100-400">$100 - $400</option>
+          <option value="200-400">$200 - $400</option>
+          <option value="500-800">$500 - $800</option>
+          
         </select>
       </div>
 
@@ -124,7 +129,7 @@ const Product = () => {
         </select>
       </div>
 
-      {/* Product Grid */}
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.length > 0 ? (
           products.map((product) => (
