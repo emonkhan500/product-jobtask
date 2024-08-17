@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
+import Baner from '../Baner';
 
 
 const Home = () => {
     
     return (
         <div>
-            <h1>This is home</h1>
+            <Baner></Baner>
         </div>
     );
 };
