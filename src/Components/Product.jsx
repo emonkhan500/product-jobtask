@@ -5,11 +5,12 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("price_asc"); // Default sorting
   const productsPerPage = 10;
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}`
+      `http://localhost:5000/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}&sort=${sortBy}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -19,7 +20,7 @@ const Product = () => {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, sortBy]);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -30,6 +31,11 @@ const Product = () => {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1); // Reset to the first page when a new search is made
+  };
+
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+    setCurrentPage(1); // Reset to the first page when sorting changes
   };
 
   return (
@@ -45,6 +51,20 @@ const Product = () => {
           placeholder="Search by product title..."
           className="w-full sm:w-1/2 p-2 border rounded-lg shadow-lg"
         />
+      </div>
+
+      {/* Sort Options */}
+      <div className="mb-6 flex justify-center">
+        <select
+          value={sortBy}
+          onChange={handleSortChange}
+          className="p-2 border rounded-lg shadow-lg"
+        >
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+          
+          <option value="date_desc">Date Added: Newest First</option>
+        </select>
       </div>
 
       {/* Product Grid */}
