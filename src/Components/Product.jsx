@@ -6,11 +6,14 @@ const Product = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("price_asc"); // Default sorting
+  const [brandFilter, setBrandFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
   const productsPerPage = 10;
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}&sort=${sortBy}`
+      `http://localhost:5000/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}&sort=${sortBy}&brand=${encodeURIComponent(brandFilter)}&category=${encodeURIComponent(categoryFilter)}&price=${encodeURIComponent(priceFilter)}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -20,7 +23,7 @@ const Product = () => {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, [currentPage, searchQuery, sortBy]);
+  }, [currentPage, searchQuery, sortBy, brandFilter, categoryFilter, priceFilter]);
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -38,6 +41,21 @@ const Product = () => {
     setCurrentPage(1); // Reset to the first page when sorting changes
   };
 
+  const handleBrandChange = (e) => {
+    setBrandFilter(e.target.value);
+    setCurrentPage(1); // Reset to the first page when the brand filter changes
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategoryFilter(e.target.value);
+    setCurrentPage(1); // Reset to the first page when the category filter changes
+  };
+
+  const handlePriceChange = (e) => {
+    setPriceFilter(e.target.value);
+    setCurrentPage(1); // Reset to the first page when the price filter changes
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Product List</h1>
@@ -53,6 +71,46 @@ const Product = () => {
         />
       </div>
 
+      {/* Filter Options */}
+      <div className="mb-6 flex justify-around">
+        <select
+          value={brandFilter}
+          onChange={handleBrandChange}
+          className="p-2 border rounded-lg shadow-lg"
+        >
+          <option value="">All Brands</option>
+          <option value="Razer">Razer</option>
+          <option value="Apple">Apple</option>
+          <option value="Google">Google</option>
+          <option value="OnePlus">OnePlus</option>
+          <option value="Xiaomi">Xiaomi</option>
+          <option value="HP">HP</option>
+          
+        </select>
+        
+        <select
+          value={categoryFilter}
+          onChange={handleCategoryChange}
+          className="p-2 border rounded-lg shadow-lg"
+        >
+          <option value="">All Categories</option>
+          <option value="Computers">Computers</option>
+          <option value="Accessories">Accessories</option>
+          {/* Add more category options as needed */}
+        </select>
+        
+        <select
+          value={priceFilter}
+          onChange={handlePriceChange}
+          className="p-2 border rounded-lg shadow-lg"
+        >
+          <option value="">All Prices</option>
+          <option value="500-1000">$500 - $1000</option>
+          <option value="1000-1500">$1000 - $1500</option>
+          {/* Add more price options as needed */}
+        </select>
+      </div>
+
       {/* Sort Options */}
       <div className="mb-6 flex justify-center">
         <select
@@ -62,7 +120,6 @@ const Product = () => {
         >
           <option value="price_asc">Price: Low to High</option>
           <option value="price_desc">Price: High to Low</option>
-          
           <option value="date_desc">Date Added: Newest First</option>
         </select>
       </div>
