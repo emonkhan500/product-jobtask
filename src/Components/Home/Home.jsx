@@ -6,7 +6,7 @@ import Baner from '../Baner';
 const Home = () => {
     
     return (
-        <div>
+        <div >
             <Baner></Baner>
         </div>
     );
