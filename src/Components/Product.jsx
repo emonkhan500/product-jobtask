@@ -13,7 +13,7 @@ const Product = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}&sort=${sortBy}&brand=${encodeURIComponent(brandFilter)}&category=${encodeURIComponent(categoryFilter)}&price=${encodeURIComponent(priceFilter)}`
+      `https://scic-product-jobtask2-server.vercel.app/product?page=${currentPage}&limit=${productsPerPage}&search=${encodeURIComponent(searchQuery)}&sort=${sortBy}&brand=${encodeURIComponent(brandFilter)}&category=${encodeURIComponent(categoryFilter)}&price=${encodeURIComponent(priceFilter)}`
     )
       .then((res) => res.json())
       .then((data) => {
